@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Navigation.CustomUIElements"
+             xmlns:conv="clr-namespace:Navigation.Conventers"
+             x:Class="Navigation.Pages.SelfGuidedPage"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments ="Thickness" 
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        
+        <StackLayout Grid.Row="0" BackgroundColor="#191A2F">
+        <Grid Padding="10, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="141*"/>
+            </Grid.ColumnDefinitions>
+                
+            <local:AppButton Grid.Column="0" Image="ic_menu_black_36dp.png" 
+                                    BackgroundColor="Transparent" Command="{Binding OpenMenuCommand}"/>
+            <BoxView Grid.Column="1" VerticalOptions="Center" Opacity="0.5" Color="Gray"/>
+            <Label Grid.Column="2" Margin="20, 0, 5, 0" 
+                   Text="Samouczek" VerticalTextAlignment="Center" FontSize="20" TextColor="White"/>
+
+      </Grid>
+        </StackLayout>
+        <AbsoluteLayout x:Name="view" Grid.Row="1" Opacity="0">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                 <controls:CarouselViewControl
+                    ItemsSource="{Binding MyItemsSource}"
+                    Orientation="Horizontal"
+                    InterPageSpacing="5"
+                    VerticalOptions="FillAndExpand"
+                    ShowIndicators="true">
+
+                    <controls:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6*"/>
+                                    <RowDefinition Height="4*"/>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Row="0" Source="{Binding ImageSource}" Aspect="AspectFit" Margin="10, 0, 10, 0" />
+
+                                <StackLayout Grid.Row="1" Padding="20, 0, 20, 0">
+                                    <Label Text="{Binding LabelText}" FontSize="12" HorizontalTextAlignment="Start" Margin="0,0,0,10" VerticalOptions="CenterAndExpand"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:CarouselViewControl.ItemTemplate>
+                </controls:CarouselViewControl>
+            </StackLayout>
+        </AbsoluteLayout>
+
+        <StackLayout Grid.Row="2">
+            <local:AppButton Text="Pomiń" 
+                    Command="{Binding SkipButtonClickedCommand}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

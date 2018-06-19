@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                  xmlns:local="clr-namespace:Navigation.Pages;assembly=Navigation"
+                  x:Class="Navigation.Pages.StartPage">
+  <MasterDetailPage.IsGestureEnabled>
+    <OnPlatform x:TypeArguments="x:Boolean">
+        <On Platform="iOS" Value="false"/>
+        <On Platform="Android" Value="true"/>      
+    </OnPlatform>
+  </MasterDetailPage.IsGestureEnabled>
+  <MasterDetailPage.Master>
+    <local:MasterPage x:Name="masterPage" />
+  </MasterDetailPage.Master>
+        <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <local:Blank />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

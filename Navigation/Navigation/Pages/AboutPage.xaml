@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Navigation.CustomUIElements"
+             x:Class="Navigation.Pages.AboutPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments ="Thickness" 
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <StackLayout  Grid.Row="0" BackgroundColor="#191A2F">
+            <Grid Padding="10, 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="141*"/>
+                </Grid.ColumnDefinitions>
+                    
+                <local:AppButton Grid.Column="0" Image="ic_menu_black_36dp.png" 
+                                        BackgroundColor="Transparent" Command="{Binding OpenMenuCommand}"/>
+                
+                <BoxView Grid.Column="1" VerticalOptions="Center" Opacity="0.5" Color="Gray"/>
+                
+                <Label Grid.Column="2" Margin="20, 0, 0, 0" 
+                       Text="O Aplikacji" VerticalTextAlignment="Center" FontSize="20" TextColor="White"/>
+            </Grid>
+        </StackLayout>
+        
+        <AbsoluteLayout x:Name="view" 
+                        Grid.Row="1"
+                        BackgroundColor="White">
+            
+            <Image Source="aboutpagebackground.png"
+                   AbsoluteLayout.LayoutBounds="0.5,0.5,0.6,0.6"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Opacity="0.1"/>
+            
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                         AbsoluteLayout.LayoutFlags="All"
+                         Padding="10, 0">
+                <ScrollView>
+                    <StackLayout>
+                        <BoxView WidthRequest="0.2"
+                                 HeightRequest="1"
+                                 BackgroundColor="Black"/>
+                        
+                        <Image x:Name="Logo"
+                               Source="navlogo.png"
+                               HeightRequest="60"
+                               Margin="0, 30" />
+                        
+                        <BoxView WidthRequest="0.2"
+                                 HeightRequest="1"
+                                 BackgroundColor="Black"/>
+                        
+                        <Label x:Name="FirstLabel"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="{Binding FirstParagraph}"
+                               HorizontalTextAlignment="Center"
+                               Margin="0, 10, 0, 20"/>
+                        
+                        <Label FontSize="18"
+                               TextColor="Black"
+                               Text="{Binding SecondParagraph}"
+                               HorizontalTextAlignment="Center"/>
+                        
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </AbsoluteLayout>
+     </Grid>
+</ContentPage>

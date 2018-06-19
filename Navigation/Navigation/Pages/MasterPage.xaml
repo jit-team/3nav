@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Navigation.Pages.MasterPage"
+             Icon="hamburger.png"
+             Title="Start Page">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments ="Thickness" 
+                    iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <Grid Padding="5,10" BackgroundColor="#191A2F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150*"/>
+       </Grid.RowDefinitions>
+        
+       <Image Grid.Row="0" Source="app_icon_pin_light.png" Margin="0, 30"/>
+       <BoxView Grid.Row="1" HeightRequest="3" VerticalOptions="Center" Opacity="0.5" Color="#145046"/>
+        
+       <ListView x:Name="MenuList"
+                 Grid.Row="2"
+                 HorizontalOptions="Center"
+                 ItemsSource="{Binding Items}" 
+                 SeparatorVisibility="None"
+                 Margin="0, 20, 0, 0"
+                 BackgroundColor="#191A2F"
+                 SelectedItem="{Binding SelectedItem, Mode=TwoWay} ">
+                 <ListView.ItemTemplate>
+                     <DataTemplate>
+                         <TextCell Text="{Binding Name}" TextColor="White"  />
+                     </DataTemplate>
+                 </ListView.ItemTemplate>
+        </ListView>    
+    </Grid>
+</ContentPage>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Navigation.CustomUIElements"
+             xmlns:carusel="clr-namespace:Navigation.Models"
+             xmlns:behaviors="clr-namespace:Navigation.Models;assembly=Navigation.Models"
+             x:Class="Navigation.Pages.MainPage">
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments ="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <Grid BackgroundColor="#191A2F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0">
+            <Grid Padding="10, 10" BackgroundColor="#191A2F">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="120*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="20*"/>
+                </Grid.ColumnDefinitions>
+
+                <local:AppButton Grid.Column="0" Image="ic_menu_black_36dp.png" 
+                                    BackgroundColor="Transparent" Command="{Binding OpenMenuCommand}"/>
+
+                <BoxView Grid.Column="1"  VerticalOptions="Center" Opacity="0.5" Color="Gray"/>
+
+                <local:MainEntry Grid.Column="2" 
+                                 x:Name="textEntry" 
+                                 Text="{Binding EntryClassroom}"
+                                 Focused="Handle_Focused"
+                                 Unfocused="Handle_Unfocused"
+                                 BackgroundColor="#f7f7f7" 
+                                 Placeholder="{Binding SelectedClassroom}"/>
+
+                <BoxView Grid.Column="3" VerticalOptions="Center" 
+                         BackgroundColor="Transparent" Opacity="0.5" Color="Gray" />
+                        
+                <local:AppButton Grid.Column="4" Image="ic_cancel_black_36dp.png"
+                                    Command="{Binding DismissListCommand}" BackgroundColor="Transparent"/>
+            </Grid>
+         </StackLayout>
+         <AbsoluteLayout Grid.Row="1" x:Name="view" Opacity="0">
+         <Grid BackgroundColor="#191A2F">
+            <local:ZoomScroolView BackgroundColor="White">
+                <AbsoluteLayout x:Name="Map">
+                    <Image x:Name="JitMap"
+                           Source="map.png"
+                           Aspect="AspectFit"
+                           VerticalOptions="Start"
+                           AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                           AbsoluteLayout.LayoutFlags="All"
+                           SizeChanged="Handle_SizeChanged"/>
+                        
+                    <AbsoluteLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="{Binding UserCirclePosition}">
+                        <Image x:Name="UserCircle"
+                               Source="circle.png"
+                               IsVisible="{Binding IsUserCircleVisible}"
+                               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                               AbsoluteLayout.LayoutFlags="All"/>
+                        <local:RotationImage Source="arrow.png"
+                               AbsoluteLayout.LayoutFlags="All"
+                               AbsoluteLayout.LayoutBounds="{Binding DirectionPinPosition}"
+                               NextRotation="{Binding UserDirection}"
+                               IsVisible="{Binding IsDirectionPinVisible}"/>
+                    </AbsoluteLayout>
+                    
+                    <Image x:Name="LocalizationPin"
+                           Source="localizationpin.png"
+                           Scale="0.8"
+                           IsVisible="{Binding IsDestinationVisible, Mode=TwoWay}"
+                           AbsoluteLayout.LayoutBounds="{Binding DestinationPosition}"
+                           AbsoluteLayout.LayoutFlags="All"/>
+
+                    <StackLayout AbsoluteLayout.LayoutBounds="0.5, 0.01, 2.5, 0.12"
+                           AbsoluteLayout.LayoutFlags="All"
+                           IsVisible="{Binding IsBluetoothEnabled, Mode=TwoWay}"
+                           BackgroundColor="Silver"
+                           Opacity="0.8"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center">
+                            
+                        <Label Text="Bluetooth wyłączony. Bluetooth musi być włączony, aby w pełni korzystać z aplikacji."
+                           HorizontalTextAlignment="Center"
+                           TextColor="Red"
+                           Font="Bold, 23"
+                           Opacity="0.8"
+                           Scale="0.4"/>
+                    </StackLayout>
+                </AbsoluteLayout>
+            </local:ZoomScroolView>
+        </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="120*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="20*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                
+            <ListView x:Name="ClassroomList"
+                   Grid.Column="2"
+                   Grid.Row="0"
+                   BackgroundColor="#f7f7f7"
+                   ItemsSource="{Binding FilteredClassroomList}"
+                   IsVisible="{Binding IsListVisible, Mode=TwoWay}"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   ItemTapped="Handle_ItemTapped">
+                   <ListView.ItemTemplate>
+                       <DataTemplate>
+                           <TextCell Text="{Binding Name}" TextColor="Black"/>
+                       </DataTemplate>
+                   </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+         </AbsoluteLayout>
+    </Grid>
+</ContentPage>
